@@ -50,8 +50,6 @@ exports.getTagByMovie = function(req, res) {
 		}
 	};
 
-	console.log(qryObj);
-
 	mySearchCall = elasticSearchClient.search('movielens', 'tags', qryObj);
 	mySearchCall.exec(function(err, data){
 		res.jsonp(JSON.parse(data));
@@ -69,8 +67,6 @@ exports.getRatingsByUser = function(req, res) {
 			}
 		}
 	};
-
-	console.log(qryObj);
 
 	mySearchCall = elasticSearchClient.search('movielens', 'ratings', qryObj);
 	mySearchCall.exec(function(err, data){
@@ -273,7 +269,6 @@ exports.getRecommendationContentHibridUser = function(req, res) {
 	],
 		// optional callback
 	function(err, results){
-		//console.log(results);
 		var maxValue = results.hits.hits[0]._score;
 		for(var i = 0; i<results.hits.hits.length; i++) {
 			results.hits.hits[i]._source.value = parseFloat(((results.hits.hits[i]._score * 5)/maxValue).toFixed(2));
@@ -531,7 +526,6 @@ exports.getRecommendationCFContentHibridUser = function(req, res) {
 	],
 		// optional callback
 	function(err, results){
-		//console.log(results);
 		res.jsonp(results);
 	});
 };
